@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <attr name="screen_begin" format="boolean"/>
+  <attr name="screen_end" format="boolean"/>
+  <attr name="screen_end_match" format="boolean"/>
+
+  <declare-styleable name="ScreenLayoutParams">
+    <attr name="screen_begin"/>
+    <attr name="screen_end"/>
+    <attr name="screen_end_match"/>
+  </declare-styleable>
+
+</resources>
