@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -30,13 +31,17 @@ public class ScreenLayoutN1 extends LinearLayout {
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    Log.e("screen_layout", ">> ----- measure ----- <<");
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    measureScreen(heightMeasureSpec);
+    Log.e("screen_layout", ">. height [" + getMeasuredHeight() + "]");
+    int screenHeight = MeasureSpec.getSize(heightMeasureSpec);
+    Log.e("screen_layout", ">. parent height [" + screenHeight + "]");
+    measureScreen(screenHeight);
   }
 
-  private void measureScreen(int heightMeasureSpec) {
+  private void measureScreen(int screenHeight) {
+    Log.e("screen_layout", ">> ----- measure ----- <<");
     int screenWidth = getMeasuredWidth();
-    int screenHeight = MeasureSpec.getSize(heightMeasureSpec);
     final int count = getChildCount();
 
     boolean screenBegin = false;
@@ -96,6 +101,8 @@ public class ScreenLayoutN1 extends LinearLayout {
     }
 
     // 更新测量高度
+    Log.e("screen_layout", ">. screen height [" + screenHeight + "]");
+    Log.e("screen_layout", ">. total height [" + totalHeight + "]");
     setMeasuredDimension(screenWidth, totalHeight);
   }
 
@@ -111,6 +118,12 @@ public class ScreenLayoutN1 extends LinearLayout {
     }
 
     child.measure(widthSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    Log.e("screen_layout", ">> ----- layout ----- <<");
+    super.onLayout(changed, left, top, right, bottom);
   }
 
   @Override

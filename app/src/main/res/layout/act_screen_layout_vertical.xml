@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<design.ijoic.screenlayout.ScreenLayout
+<design.ijoic.screenlayout.ScreenLayoutParent
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="#fff">
+  android:layout_height="match_parent">
 
-  <!-- screen first -->
-  <View
+  <design.ijoic.screenlayout.ScreenLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="#ccc"
-    app:screen_begin="true"/>
+    android:layout_height="match_parent"
+    android:background="#fff">
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:background="#eee"/>
+    <!-- screen first -->
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:background="#ccc"
+      app:screen_begin="true"/>
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:background="#ddd"
-    app:screen_end="true"
-    app:screen_end_match="true"/>
-  <!-- screen first :~ -->
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:background="#eee"/>
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:background="#eee"/>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="300dp"
+      android:background="#ddd"
+      app:screen_end="true"
+      app:screen_end_match="true"/>
+    <!-- screen first :~ -->
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:background="#ddd"/>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:background="#eee"/>
 
-  <!-- screen second -->
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:background="#eee"
-    app:screen_begin="true"/>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="120dp"
+      android:background="#ddd"/>
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:background="#ddd"
-    app:screen_end="true"
-    app:screen_end_match="true"/>
-  <!-- screen second :~ -->
+    <!-- screen second -->
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:background="#eee"
+      app:screen_begin="true"/>
 
-</design.ijoic.screenlayout.ScreenLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="300dp"
+      android:background="#ddd"
+      app:screen_end="true"
+      app:screen_end_match="true"/>
+    <!-- screen second :~ -->
+
+  </design.ijoic.screenlayout.ScreenLayout>
+</design.ijoic.screenlayout.ScreenLayoutParent>
+
 

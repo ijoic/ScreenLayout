@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Scroller;
 
 /**
  * 屏布局
@@ -16,15 +14,6 @@ import android.widget.Scroller;
  * @author ijoic 963505345@qq.com
  */
 public class ScreenLayout extends LinearLayout {
-  // grade contents:
-  // N1: layout control
-  // N2: scroll support
-  // N3: fling support
-
-  // scroll
-  private int maxScrollY;
-  private GestureDetector gestureDetector;
-  private Scroller scroller;
 
   /**
    * 构造函数
@@ -34,23 +23,21 @@ public class ScreenLayout extends LinearLayout {
    */
   public ScreenLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
-    init(context);
-  }
-
-  private void init(Context context) {
-    gestureDetector = new GestureDetector(context, new GestureListener(), null);
-    scroller = new Scroller(context);
   }
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    Log.e("screen_layout", ">> ----- measure ----- <<");
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    measureScreen(heightMeasureSpec);
+    Log.e("screen_layout", ">. height [" + getMeasuredHeight() + "]");
+    int screenHeight = MeasureSpec.getSize(heightMeasureSpec);
+    Log.e("screen_layout", ">. parent height [" + screenHeight + "]");
+    measureScreen(screenHeight);
   }
 
-  private void measureScreen(int heightMeasureSpec) {
+  private void measureScreen(int screenHeight) {
+    Log.e("screen_layout", ">> ----- measure ----- <<");
     int screenWidth = getMeasuredWidth();
-    int screenHeight = MeasureSpec.getSize(heightMeasureSpec);
     final int count = getChildCount();
 
     boolean screenBegin = false;
@@ -110,11 +97,8 @@ public class ScreenLayout extends LinearLayout {
     }
 
     // 更新测量高度
-    updateMeasureHeight(totalHeight, screenWidth, screenHeight);
-  }
-
-  private void updateMeasureHeight(int totalHeight, int screenWidth, int screenHeight) {
-    maxScrollY = Math.max(totalHeight - screenHeight, 0);
+    Log.e("screen_layout", ">. screen height [" + screenHeight + "]");
+    Log.e("screen_layout", ">. total height [" + totalHeight + "]");
     setMeasuredDimension(screenWidth, totalHeight);
   }
 
@@ -133,20 +117,14 @@ public class ScreenLayout extends LinearLayout {
   }
 
   @Override
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    Log.e("screen_layout", ">> ----- layout ----- <<");
+    super.onLayout(changed, left, top, right, bottom);
+  }
+
+  @Override
   public LayoutParams generateLayoutParams(AttributeSet attrs) {
     return new LayoutParams(getContext(), attrs);
-  }
-
-  @Override
-  public boolean onTouchEvent(MotionEvent event) {
-    return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
-  }
-
-  @Override
-  public void computeScroll() {
-    if (scroller.computeScrollOffset()) {
-      scrollTo(scroller.getCurrX(), scroller.getCurrY());
-    }
   }
 
   /**
@@ -184,39 +162,6 @@ public class ScreenLayout extends LinearLayout {
       screenEndMatch = a.getBoolean(R.styleable.ScreenLayoutParams_screen_end_match, false);
 
       a.recycle();
-    }
-  }
-
-  private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-    @Override
-    public boolean onDown(MotionEvent e) {
-      if (!scroller.isFinished()) {
-        scroller.abortAnimation();
-      }
-      return true;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-      int oldScrollY = getScrollY();
-      int newScrollY = oldScrollY + (int) (distanceY + 0.5f);
-
-      if (newScrollY < 0) {
-        newScrollY = 0;
-      } else if (newScrollY > maxScrollY) {
-        newScrollY = maxScrollY;
-      }
-      if (oldScrollY != newScrollY) {
-        scrollTo(0, newScrollY);
-        return true;
-      }
-      return false;
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-      scroller.fling(getScrollX(), getScrollY(), 0, -(int) (velocityY + 0.5f), 0, 0, 0, maxScrollY);
-      return true;
     }
   }
 }

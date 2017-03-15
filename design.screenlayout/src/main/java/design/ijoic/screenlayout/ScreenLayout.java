@@ -3,14 +3,14 @@ package design.ijoic.screenlayout;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import design.ijoic.screenlayout.vertical.ScreenLayoutN3;
+import design.ijoic.screenlayout.vertical.ScreenLayoutN1;
 
 /**
  * 屏布局
  *
  * @author ijoic 963505345@qq.com
  */
-public class ScreenLayout extends ScreenLayoutN3 {
+public class ScreenLayout extends ScreenLayoutN1 {
   /**
    * 构造函数
    *
